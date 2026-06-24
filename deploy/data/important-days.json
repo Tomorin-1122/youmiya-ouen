@@ -1,0 +1,151 @@
+[
+  {
+    "month": 3,
+    "day": 26,
+    "year": 2000,
+    "title": "羊宫妃那生日",
+    "description": "羊宫妃那小姐的生日！🎉",
+    "type": "birthday",
+    "importance": "special",
+    "character": "羊宫妃那"
+  },
+  {
+    "month": 1,
+    "day": 17,
+    "year": 2021,
+    "title": "第一个动画角色",
+    "description": "出演《王之逆袭》角色莱登，第一个动画角色",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 3,
+    "day": 9,
+    "year": 2021,
+    "title": "SELECTION PROJECT",
+    "description": "宣布出演《SELECTION PROJECT》角色八木野土香",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 11,
+    "day": 14,
+    "year": 2021,
+    "title": "更衣人偶坠入爱河",
+    "description": "宣布出演《更衣人偶坠入爱河》角色乾心寿",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 6,
+    "day": 25,
+    "year": 2022,
+    "title": "见到花泽香菜",
+    "description": "见到偶像花泽香菜后激动得当场哭了",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 1,
+    "day": 6,
+    "year": 2023,
+    "title": "第一个主役动画",
+    "description": "第一个主役TV动画《阿鲁斯的巨兽》播出",
+    "type": "event",
+    "importance": "important"
+  },
+  {
+    "month": 4,
+    "day": 1,
+    "year": 2023,
+    "title": "我心里危险的东西",
+    "description": "《我心里危险的东西》第一季播出，出演山田杏奈",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 4,
+    "day": 9,
+    "year": 2023,
+    "title": "MyGO!!!!!主唱",
+    "description": "正式公布成为MyGO!!!!!主唱高松灯的声优",
+    "type": "event",
+    "importance": "important"
+  },
+  {
+    "month": 3,
+    "day": 9,
+    "year": 2024,
+    "title": "声优奖新人赏",
+    "description": "获得第18届声优奖新人声优赏",
+    "type": "event",
+    "importance": "important"
+  },
+  {
+    "month": 7,
+    "day": 6,
+    "year": 2024,
+    "title": "小市民系列",
+    "description": "《小市民系列》第一期播出，出演小佐内由纪",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 2,
+    "day": 1,
+    "year": 2025,
+    "title": "THE FIRST TAKE",
+    "description": "作为高松灯登上THE FIRST TAKE，完成《春日影》和《潜在表明》演出",
+    "type": "event",
+    "importance": "important"
+  },
+  {
+    "month": 4,
+    "day": 11,
+    "year": 2025,
+    "title": "正所属",
+    "description": "宣布成为青二事务所正所属",
+    "type": "event",
+    "importance": "normal"
+  },
+  {
+    "month": 1,
+    "day": 1,
+    "year": 2021,
+    "title": "乾心寿生日",
+    "description": "《更衣人偶坠入爱河》角色乾心寿的生日",
+    "type": "character_birthday",
+    "importance": "normal",
+    "character": "乾心寿"
+  },
+  {
+    "month": 4,
+    "day": 6,
+    "year": 2023,
+    "title": "山田杏奈生日",
+    "description": "《我心里危险的东西》角色山田杏奈的生日",
+    "type": "character_birthday",
+    "importance": "normal",
+    "character": "山田杏奈"
+  },
+  {
+    "month": 5,
+    "day": 10,
+    "year": 2021,
+    "title": "高松灯生日",
+    "description": "《BanG Dream! It's MyGO!!!!!》角色高松灯的生日",
+    "type": "character_birthday",
+    "importance": "normal",
+    "character": "高松灯"
+  },
+  {
+    "month": 3,
+    "day": 3,
+    "year": 2024,
+    "title": "小佐内由纪生日",
+    "description": "《小市民系列》角色小佐内由纪的生日",
+    "type": "character_birthday",
+    "importance": "normal",
+    "character": "小佐内由纪"
+  }
+]
