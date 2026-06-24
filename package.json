@@ -1,0 +1,5 @@
+{
+  "name": "声優ギャラリー",
+  "start": "python -m http.server 8800",
+  "desc": "启动本地图片流网站，浏览器打开 http://localhost:8800/gallery.html"
+}

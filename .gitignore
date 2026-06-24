@@ -9,10 +9,8 @@ __pycache__/
 # 本地配置
 config.json
 
-# 临时图片（根目录）
-*.jpg
-*.jpeg
-*.png
-*.webp
-!data/
-!deploy/data/
+# 临时图片（仅根目录）
+/*.jpg
+/*.jpeg
+/*.png
+/*.webp

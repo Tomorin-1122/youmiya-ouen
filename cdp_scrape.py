@@ -143,8 +143,10 @@ def scrape_account(ws, account_id, account_name, scroll_times=3):
     logger.info(f"发现 {len(img_urls)} 张唯一媒体图片")
 
     # 提取推文信息（包含每条推文的图片URL）
+    # 注意：X 已将 <article> 改为 [data-testid="cellInnerDiv"]
     js_tweets = (
-        "JSON.stringify(Array.from(document.querySelectorAll('article'))"
+        "JSON.stringify(Array.from(document.querySelectorAll("
+        "'[data-testid=\"cellInnerDiv\"]'))"
         ".map(a=>{"
         "  const l=a.querySelector('a[href*=\"/status/\"]');"
         "  if(!l)return null;"
