@@ -1029,6 +1029,29 @@ body {
   border-color: var(--accent);
 }
 
+.about-lang-toggle {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--wiki-border);
+}
+
+.about-lang-toggle .lang-toggle-btn {
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  color: var(--accent);
+}
+
+.about-lang-toggle .lang-toggle-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
 @media (max-width: 768px) {
   .about-section {
     padding: 20px 15px;
@@ -1206,7 +1229,6 @@ body {
   </nav>
   <div class="sidebar-theme-toggle">
     <button class="theme-toggle-btn" id="themeToggle" title="切换深色模式">🌙</button>
-    <button class="lang-toggle-btn" id="langToggle" title="日本語に切替">中/日</button>
   </div>
   <div class="sidebar-footer">
     <div class="sidebar-stats">
@@ -1272,7 +1294,10 @@ body {
             <li>B站字幕组：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li>
             <li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li>
           </ul>
-          <p>本项目开源地址：<a href="https://github.com/Tomorin-1122" target="_blank">GitHub - Tomorin-1122</a></p>
+          <p>本项目开源地址：<a href="https://github.com/Tomorin-1122/youmiya-ouen" target="_blank">GitHub - youmiya-ouen</a></p>
+        </div>
+        <div class="about-lang-toggle">
+          <button class="lang-toggle-btn" id="langToggle" title="日本語に切替">中/日</button>
         </div>
       </div>
     </div>
@@ -1590,7 +1615,7 @@ const translations = {
     voices: '💬 <span>心声</span>',
     about: 'ℹ️ <span>关于</span>',
     aboutTitle: '关于本站',
-    aboutContent: '<p>本网站为粉丝个人应援站，非官方网站。</p><p>感谢各位对小羊的应援，祝愿大家都能有美好的一天✨</p><p>本网站所有内容来自互联网公开内容，特别鸣谢：</p><ul><li>B站字幕组：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li><li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li></ul><p>本项目开源地址：<a href="https://github.com/Tomorin-1122" target="_blank">GitHub - Tomorin-1122</a></p>',
+    aboutContent: '<p>本网站为粉丝个人应援站，非官方网站。</p><p>感谢各位对小羊的应援，祝愿大家都能有美好的一天✨</p><p>本网站所有内容来自互联网公开内容，特别鸣谢：</p><ul><li>B站字幕组：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li><li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li></ul><p>本项目开源地址：<a href="https://github.com/Tomorin-1122/youmiya-ouen" target="_blank">GitHub - youmiya-ouen</a></p>',
     birthdayTitle: '🎂 今天是羊宫妃那的生日！',
     birthdayMessage: '祝小羊生日快乐！🎉✨',
     importantDayTitle: '📅 那年今日',
@@ -1603,7 +1628,7 @@ const translations = {
     voices: '💬 <span>心声</span>',
     about: 'ℹ️ <span>について</span>',
     aboutTitle: 'このサイトについて',
-    aboutContent: '<p>このサイトはファン個人の応援サイトであり、公式サイトではありません。</p><p>小羊への応援ありがとうございます、皆さんにとって素晴らしい一日になりますように✨</p><p>このサイトのすべてのコンテンツはインターネットの公開コンテンツから引用しています。特に感謝：</p><ul><li>Bilibili字幕グループ：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li><li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li></ul><p>このプロジェクトのオープンソースアドレス：<a href="https://github.com/Tomorin-1122" target="_blank">GitHub - Tomorin-1122</a></p>',
+    aboutContent: '<p>このサイトはファン個人の応援サイトであり、公式サイトではありません。</p><p>小羊への応援ありがとうございます、皆さんにとって素晴らしい一日になりますように✨</p><p>このサイトのすべてのコンテンツはインターネットの公開コンテンツから引用しています。特に感謝：</p><ul><li>Bilibili字幕グループ：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li><li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li></ul><p>このプロジェクトのオープンソースアドレス：<a href="https://github.com/Tomorin-1122/youmiya-ouen" target="_blank">GitHub - youmiya-ouen</a></p>',
     birthdayTitle: '🎂 今日は羊宮妃那の誕生日です！',
     birthdayMessage: 'お誕生日おめでとうございます！🎉✨',
     importantDayTitle: '📅 あの日の今日',
@@ -1649,8 +1674,6 @@ function toggleLanguage() {
   updateUITranslations();
 }
 
-document.getElementById('langToggle').addEventListener('click', toggleLanguage);
-
 // Theme toggle
 function initTheme() {
   const savedTheme = localStorage.getItem('theme');
@@ -1670,7 +1693,13 @@ function toggleTheme() {
 }
 
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
+// Language toggle - bind to button if it exists
+const langToggleBtn = document.getElementById('langToggle');
+if (langToggleBtn) {
+  langToggleBtn.addEventListener('click', toggleLanguage);
+}
+
 initTheme();
 updateUITranslations();
 checkImportantDays();
