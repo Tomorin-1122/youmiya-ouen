@@ -231,6 +231,15 @@ body {
 
 .masonry-item:hover { transform: translateY(-2px); }
 
+.liked-item {
+  box-shadow: 0 0 0 2px rgba(212, 114, 138, 0.3);
+  border-radius: var(--card-radius);
+}
+
+.liked-item img {
+  border-radius: var(--card-radius);
+}
+
 .masonry-item img {
   width: 100%;
   display: block;
@@ -1339,6 +1348,7 @@ function toggleLike(postId, btn) {
     setTimeout(() => btn.classList.remove('heart-pop'), 300);
   }
   saveLikes();
+  renderMasonry();
 }
 
 function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
@@ -1350,10 +1360,17 @@ function renderMasonry() {
     masonry.innerHTML = '<div class="empty-state"><div class="empty-icon">📷</div><div class="empty-title">还没有照片</div></div>';
     return;
   }
-  masonry.innerHTML = allPosts.map((post, idx) => {
+  // 点赞的照片排前面
+  const sorted = [...allPosts].sort((a, b) => {
+    const la = likes.has(a.id) ? 0 : 1;
+    const lb = likes.has(b.id) ? 0 : 1;
+    return la - lb;
+  });
+  masonry.innerHTML = sorted.map((post, idx) => {
     const img = post.images?.[0];
     const imgPath = img ? `data/images/${img.filename}` : '';
-    return `<div class="masonry-item" data-post-id="${post.id}"><img src="${imgPath}" alt="" loading="lazy"></div>`;
+    const likedClass = likes.has(post.id) ? ' liked-item' : '';
+    return `<div class="masonry-item${likedClass}" data-post-id="${post.id}"><img src="${imgPath}" alt="" loading="lazy"></div>`;
   }).join('');
   masonry.querySelectorAll('.masonry-item').forEach(item => {
     item.addEventListener('click', () => {
