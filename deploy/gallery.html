@@ -769,6 +769,11 @@ body {
   color: var(--accent-soft);
 }
 
+.voice-card-type.article {
+  background: rgba(100, 149, 237, 0.12);
+  color: #5b8bd4;
+}
+
 .voice-card-content {
   padding: 0 20px 15px;
   line-height: 1.8;
@@ -1261,6 +1266,7 @@ body {
       <button class="filter-btn active" data-filter="all">全部</button>
       <button class="filter-btn" data-filter="interview">采访</button>
       <button class="filter-btn" data-filter="tweet">推文</button>
+      <button class="filter-btn" data-filter="article">专栏</button>
     </div>
     <div class="voices-list" id="voicesList">
       <div class="loading"><div class="loading-spinner"></div><div>加载中...</div></div>
@@ -1822,7 +1828,7 @@ function renderVoices() {
             <span class="voice-card-source">${voice.source}</span>
           </div>
         </div>
-        <span class="voice-card-type ${voice.type}">${voice.type === 'interview' ? '采访' : '推文'}</span>
+        <span class="voice-card-type ${voice.type}">${voice.type === 'interview' ? '采访' : voice.type === 'article' ? '专栏' : '推文'}</span>
       </div>
       <div class="voice-card-content">
         ${voice.content.length > 200 ? voice.content.substring(0, 200) + '...' : voice.content}
