@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>羊宫国 — 羊宮妃那応援站</title>
+<link rel="icon" type="image/jpeg" href="data/avatar/avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sidebar-w: 180px;
+  --bg: #fffaf6;
+  --bg-warm: #fdf5ee;
+  --sidebar-bg: linear-gradient(180deg, #fff0f5 0%, #fce4ec 50%, #f8bbd0 100%);
+  --sidebar-text: #8e6b7e;
+  --sidebar-active: #e25b8a;
+  --sidebar-hover: rgba(226, 91, 138, 0.08);
+  --accent: #e25b8a;
+  --accent-soft: #f8a4c0;
+  --accent-light: #fde4ef;
+  --heart: #e25b8a;
+  --heart-glow: rgba(226, 91, 138, 0.35);
+  --text: #4a3540;
+  --text-light: #b08a9a;
+  --card-radius: 6px;
+  --font: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', serif;
+  --wiki-border: #e0d0d8;
+  --wiki-bg: #fdf8fa;
+  --wiki-header-bg: #f8eef2;
+}
+
+.dark-theme {
+  --bg: #1a1a2e;
+  --bg-warm: #16213e;
+  --sidebar-bg: linear-gradient(180deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+  --sidebar-text: #a8a8b3;
+  --sidebar-active: #e25b8a;
+  --sidebar-hover: rgba(226, 91, 138, 0.15);
+  --accent: #e25b8a;
+  --accent-soft: #f8a4c0;
+  --accent-light: #2a1a2e;
+  --heart: #e25b8a;
+  --heart-glow: rgba(226, 91, 138, 0.5);
+  --text: #e0e0e0;
+  --text-light: #8a8a9a;
+  --wiki-border: #2a2a3e;
+  --wiki-bg: #1a1a2e;
+  --wiki-header-bg: #0f3460;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  line-height: 1.85;
+}
+
+/* ===== Sidebar Nav ===== */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid rgba(226, 91, 138, 0.12);
+}
+
+.sidebar-header {
+  padding: 32px 16px 24px;
+  text-align: center;
+  border-bottom: 1px solid rgba(226, 91, 138, 0.1);
+}
+
+.sidebar-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+}
+
+.sidebar-sub {
+  font-size: 0.6rem;
+  color: var(--text-light);
+  letter-spacing: 0.15em;
+  margin-top: 4px;
+}
+
+.sidebar-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  margin: 14px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 10px rgba(226, 91, 138, 0.15);
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.sidebar-nav { padding: 14px 0; flex: 1; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover { color: var(--accent); background: var(--sidebar-hover); }
+.nav-item.active {
+  color: var(--sidebar-active);
+  font-weight: 500;
+  border-left-color: var(--accent);
+  background: rgba(226, 91, 138, 0.05);
+}
+
+.nav-icon { font-size: 1rem; width: 22px; text-align: center; }
+
+.sidebar-theme-toggle {
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: 1px solid var(--sidebar-text);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  color: var(--sidebar-text);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--sidebar-hover);
+  border-color: var(--accent);
+}
+
+.lang-toggle-btn {
+  background: none;
+  border: 1px solid var(--sidebar-text);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  color: var(--sidebar-text);
+  margin-left: 8px;
+}
+
+.lang-toggle-btn:hover {
+  background: var(--sidebar-hover);
+  border-color: var(--accent);
+}
+
+.sidebar-footer {
+  padding: 14px;
+  border-top: 1px solid rgba(226, 91, 138, 0.1);
+}
+
+.sidebar-stats { display: flex; gap: 6px; }
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  padding: 6px 4px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+}
+
+.stat-num { font-size: 1rem; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 0.55rem; color: var(--text-light); margin-top: 1px; }
+
+/* ===== Main ===== */
+.main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+
+.content-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 250, 246, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(226, 91, 138, 0.08);
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.page-title span { color: var(--accent); }
+
+.menu-toggle {
+  display: none;
+  width: 32px; height: 32px;
+  border: none;
+  background: var(--accent-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+/* ===== Photos Masonry ===== */
+.masonry {
+  columns: 4;
+  column-gap: 10px;
+  padding: 10px 14px 40px;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  cursor: pointer;
+  background: #f5ede8;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.masonry-item:hover { transform: translateY(-2px); }
+
+.masonry-item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.masonry-item:hover img { transform: scale(1.02); }
+
+.photos-section { display: block; }
+.photos-section.hidden { display: none; }
+
+/* ===== Wiki Section — Encyclopedia Style ===== */
+.wiki-section {
+  display: none;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.wiki-section.active { display: block; }
+
+/* Wiki Title */
+.wiki-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.06em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 16px;
+}
+
+.wiki-title-sub {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 400;
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+
+/* Quote */
+.wiki-quote {
+  font-size: 1rem;
+  color: var(--text);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--accent-soft);
+  background: var(--wiki-bg);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.wiki-quote-source {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 4px;
+  font-style: normal;
+}
+
+/* Intro */
+.wiki-intro {
+  margin-bottom: 24px;
+  font-size: 1rem;
+}
+
+/* Infobox — right floating card like Wikipedia */
+.wiki-infobox {
+  float: right;
+  width: 280px;
+  margin: 0 0 16px 20px;
+  border: 1px solid var(--wiki-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--wiki-bg);
+  font-size: 0.9rem;
+}
+
+.wiki-infobox-title {
+  background: var(--wiki-header-bg);
+  padding: 10px 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--wiki-border);
+}
+
+.wiki-infobox-photo {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+  background: #ede7e0;
+}
+
+.wiki-infobox-caption {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--wiki-border);
+}
+
+.wiki-infobox table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.wiki-infobox th {
+  background: var(--wiki-header-bg);
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.85rem;
+  width: 70px;
+  border-bottom: 1px solid var(--wiki-border);
+  vertical-align: top;
+}
+
+.wiki-infobox td {
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--wiki-border);
+  vertical-align: top;
+}
+
+.wiki-infobox tr:last-child th,
+.wiki-infobox tr:last-child td { border-bottom: none; }
+
+/* Section headers */
+.wiki-h2 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text);
+  padding: 12px 0 6px;
+  border-bottom: 1px solid var(--wiki-border);
+  margin: 28px 0 12px;
+  letter-spacing: 0.04em;
+}
+
+.wiki-h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 18px 0 8px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent-soft);
+}
+
+/* Body text */
+.wiki-p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+/* Lists */
+.wiki-ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.wiki-li {
+  padding: 4px 0 4px 18px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.wiki-li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--accent-soft);
+}
+
+/* Role list */
+.role-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 20px;
+}
+
+.role-item {
+  padding: 4px 0;
+  font-size: 0.95rem;
+}
+
+.role-name { font-weight: 500; }
+.role-work { color: var(--text-light); font-size: 0.88rem; }
+
+/* Relations */
+.relations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.relation-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid rgba(226, 91, 138, 0.08);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.relation-icon { font-size: 1.1rem; }
+
+.relation-name { font-weight: 500; }
+.relation-desc { font-size: 0.8rem; color: var(--text-light); }
+
+/* Source */
+.wiki-source {
+  margin-top: 30px;
+  padding-top: 12px;
+  border-top: 1px solid var(--wiki-border);
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.wiki-source a { color: var(--accent); text-decoration: none; }
+.wiki-source a:hover { text-decoration: underline; }
+
+/* Videos */
+.videos-section {
+  display: none;
+  text-align: center;
+  padding: 120px 40px;
+  color: var(--text-light);
+}
+
+.videos-section.active { display: block; }
+.videos-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+.videos-title { font-family: var(--font-serif); font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+
+/* ===== Lightbox ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(20, 16, 18, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.show { display: flex; }
+
+.lightbox-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  width: 36px; height: 36px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+.lightbox-image-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 16px 100px;
+  position: relative;
+}
+
+.lightbox-image-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-nav:hover { background: rgba(255,255,255,0.18); }
+.lightbox-nav.prev { left: 16px; }
+.lightbox-nav.next { right: 16px; }
+
+.lightbox-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px 20px;
+  background: linear-gradient(transparent, rgba(20, 16, 18, 0.85));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lightbox-meta { color: rgba(255,255,255,0.85); font-size: 0.8rem; }
+.lightbox-author { font-weight: 600; color: var(--accent-soft); }
+.lightbox-time { color: rgba(255,255,255,0.4); font-size: 0.7rem; margin-top: 2px; }
+
+.lightbox-actions { display: flex; gap: 10px; }
+
+.action-btn {
+  border: none;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  width: 40px; height: 40px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.action-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+
+.action-btn.heart-btn.liked {
+  background: var(--heart);
+  color: #fff;
+  box-shadow: 0 0 16px var(--heart-glow);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.heart-pop { animation: heartPop 0.3s ease; }
+
+/* Empty / Loading */
+.empty-state { text-align: center; padding: 100px 30px; color: var(--text-light); }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+.empty-title { font-family: var(--font-serif); font-size: 1.1rem; color: var(--text); margin-bottom: 6px; }
+
+.loading { text-align: center; padding: 100px 30px; color: var(--text-light); }
+
+.loading-spinner {
+  width: 28px; height: 28px;
+  border: 3px solid var(--accent-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 99; }
+.sidebar-overlay.show { display: block; }
+
+/* Responsive */
+@media (max-width: 1100px) { .masonry { columns: 3; } }
+@media (max-width: 800px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; width: 200px; }
+  .sidebar.open { transform: translateX(0); }
+  .menu-toggle { display: flex; }
+  .masonry { columns: 3; column-gap: 6px; padding: 6px 8px 30px; }
+  .masonry-item { margin-bottom: 6px; }
+  .wiki-infobox { float: none; width: 100%; margin: 0 0 20px 0; }
+}
+
+@media (max-width: 500px) {
+  .masonry { columns: 2; column-gap: 5px; padding: 5px 6px 24px; }
+  .masonry-item { margin-bottom: 5px; border-radius: 4px; }
+}
+
+/* Sakura */
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.sakura { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+
+.sakura-petal {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: radial-gradient(ellipse, #ffb7c5 30%, transparent 70%);
+  border-radius: 50% 0 50% 0;
+  opacity: 0;
+  animation: fall linear infinite;
+}
+
+.photos-section ~ .sakura { display: none; }
+
+/* ===== Voices Section ===== */
+.voices-section {
+  display: none;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.voices-section.active {
+  display: block;
+}
+
+.voices-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.voices-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.voices-subtitle {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.voices-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border: 1px solid var(--accent-soft);
+  background: white;
+  color: var(--text);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.voices-list {
+  display: grid;
+  gap: 25px;
+}
+
+.voice-card {
+  background: white;
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.voice-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.voice-card-header {
+  padding: 20px 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.voice-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.voice-card-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.voice-card-type {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+.voice-card-type.interview {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.voice-card-type.tweet {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.voice-card-content {
+  padding: 0 20px 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.voice-card-images {
+  padding: 0 20px 20px;
+}
+
+.voice-card-images img {
+  max-width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.voice-card-images img:hover {
+  transform: scale(1.02);
+}
+
+.voice-card-tags {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.voice-tag {
+  padding: 4px 12px;
+  background: var(--bg-warm);
+  color: var(--text-light);
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Voice detail modal */
+.voice-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.voice-modal.active {
+  display: flex;
+}
+
+.voice-modal-content {
+  background: white;
+  border-radius: var(--card-radius);
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 100%;
+  position: relative;
+}
+
+.voice-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+  z-index: 1001;
+}
+
+.voice-modal-header {
+  padding: 30px 30px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.voice-modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.voice-modal-meta {
+  display: flex;
+  gap: 20px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.voice-modal-body {
+  padding: 30px;
+}
+
+.voice-modal-text {
+  line-height: 2;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.voice-modal-images {
+  display: grid;
+  gap: 15px;
+}
+
+.voice-modal-images img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.voice-modal-tags {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .voices-section {
+    padding: 15px;
+  }
+  
+  .voices-title {
+    font-size: 1.5rem;
+  }
+  
+  .voice-card-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .voice-modal-content {
+    margin: 10px;
+  }
+  
+  .voice-modal-header,
+  .voice-modal-body {
+    padding: 20px;
+  }
+}
+
+/* Loading, empty, error states */
+.loading, .empty, .error {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--accent-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty {
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+/* ===== About Section ===== */
+.about-section {
+  display: none;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-section.active {
+  display: block;
+}
+
+.about-container {
+  background: white;
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.about-card {
+  padding: 40px;
+}
+
+.about-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.about-content {
+  line-height: 2;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.about-content p {
+  margin-bottom: 20px;
+}
+
+.about-content ul {
+  margin: 20px 0;
+  padding-left: 30px;
+}
+
+.about-content li {
+  margin-bottom: 10px;
+}
+
+.about-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-soft);
+  transition: border-color 0.3s ease;
+}
+
+.about-content a:hover {
+  border-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 20px 15px;
+  }
+  
+  .about-card {
+    padding: 25px;
+  }
+  
+  .about-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Wiki banner */
+.wiki-banner {
+  margin-bottom: 20px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.wiki-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 400px;
+}
+
+/* Important Day Modal */
+.important-day-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.important-day-modal.show {
+  display: flex;
+}
+
+.important-day-content {
+  background: white;
+  border-radius: var(--card-radius);
+  max-width: 500px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.important-day-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.important-day-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.important-day-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+.important-day-message {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.important-day-year {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 30px;
+}
+
+.important-day-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.important-day-btn:hover {
+  background: var(--accent-soft);
+}
+
+/* Birthday special effects */
+.birthday-special .important-day-content {
+  background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 50%, #f8bbd0 100%);
+  border: 2px solid var(--accent);
+}
+
+.birthday-special .important-day-icon {
+  animation: birthday-bounce 1s infinite;
+}
+
+.birthday-special .important-day-title {
+  color: #d81b60;
+  font-size: 2.2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.birthday-special .important-day-btn {
+  background: #d81b60;
+  animation: birthday-pulse 2s infinite;
+}
+
+@keyframes birthday-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes birthday-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(216, 27, 96, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(216, 27, 96, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(216, 27, 96, 0); }
+}
+
+@media (max-width: 768px) {
+  .important-day-content {
+    padding: 30px 20px;
+  }
+  
+  .important-day-title {
+    font-size: 1.5rem;
+  }
+  
+  .birthday-special .important-day-title {
+    font-size: 1.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="sakura" id="sakura"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">羊宫国</div>
+    <div class="sidebar-sub">YOUMIYA HINA</div>
+    <img class="sidebar-avatar" src="data/avatar/avatar.jpg" alt="羊宮妃那">
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-item" data-section="wiki"><span class="nav-icon">📖</span><span>百科</span></a>
+    <a class="nav-item active" data-section="photos"><span class="nav-icon">📷</span><span>照片</span></a>
+    <a class="nav-item" data-section="videos"><span class="nav-icon">🎬</span><span>视频</span></a>
+    <a class="nav-item" data-section="voices"><span class="nav-icon">💬</span><span>心声</span></a>
+    <a class="nav-item" data-section="about"><span class="nav-icon">ℹ️</span><span>关于</span></a>
+  </nav>
+  <div class="sidebar-theme-toggle">
+    <button class="theme-toggle-btn" id="themeToggle" title="切换深色模式">🌙</button>
+    <button class="lang-toggle-btn" id="langToggle" title="日本語に切替">中/日</button>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-stats">
+      <div class="stat-item"><div class="stat-num" id="stat-posts">0</div><div class="stat-label">投稿</div></div>
+      <div class="stat-item"><div class="stat-num" id="stat-images">0</div><div class="stat-label">照片</div></div>
+    </div>
+  </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main class="main">
+  <header class="content-header">
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <h1 class="page-title" id="pageTitle">📷 <span>照片</span>墙</h1>
+    <div></div>
+  </header>
+
+  <!-- Photos -->
+  <div class="photos-section" id="photosSection">
+    <div class="masonry" id="masonry">
+      <div class="loading"><div class="loading-spinner"></div><div>加载中...</div></div>
+    </div>
+  </div>
+
+  <!-- Wiki -->
+  <div class="wiki-section" id="wikiSection"></div>
+
+  <!-- Videos -->
+  <div class="videos-section" id="videosSection">
+    <div class="videos-icon">🎬</div>
+    <div class="videos-title">视频合集</div>
+    <div style="font-size:0.85rem; line-height:1.6;">即将上线...</div>
+  </div>
+
+  <!-- Voices -->
+  <div class="voices-section" id="voicesSection">
+    <div class="voices-header">
+      <h2 class="voices-title">💬 羊宮妃那の心声</h2>
+      <p class="voices-subtitle">记录她的每一句话语，每一个想法</p>
+    </div>
+    <div class="voices-filter">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="interview">采访</button>
+      <button class="filter-btn" data-filter="tweet">推文</button>
+    </div>
+    <div class="voices-list" id="voicesList">
+      <div class="loading"><div class="loading-spinner"></div><div>加载中...</div></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="about-section" id="aboutSection">
+    <div class="about-container">
+      <div class="about-card">
+        <h2 class="about-title">关于本站</h2>
+        <div class="about-content">
+          <p>本网站为粉丝个人应援站，非官方网站。</p>
+          <p>感谢各位对小羊的应援，祝愿大家都能有美好的一天✨</p>
+          <p>本网站所有内容来自互联网公开内容，特别鸣谢：</p>
+          <ul>
+            <li>B站字幕组：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li>
+            <li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li>
+          </ul>
+          <p>本项目开源地址：<a href="https://github.com/Tomorin-1122" target="_blank">GitHub - Tomorin-1122</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <div class="lightbox-image-wrap">
+    <button class="lightbox-nav prev" id="lightboxPrev">‹</button>
+    <img src="" alt="" id="lightboxImg">
+    <button class="lightbox-nav next" id="lightboxNext">›</button>
+    <div class="lightbox-bar">
+      <div class="lightbox-meta">
+        <div class="lightbox-author" id="lightboxAuthor"></div>
+        <div class="lightbox-time" id="lightboxTime"></div>
+      </div>
+      <div class="lightbox-actions">
+        <button class="action-btn heart-btn" id="lightboxHeart" title="喜欢">♡</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let allPosts = [];
+let currentIndex = -1;
+let likes = new Set(JSON.parse(localStorage.getItem('likes') || '[]'));
+
+function formatTime(isoStr) {
+  if (!isoStr) return '';
+  try {
+    const d = new Date(isoStr);
+    const now = new Date();
+    const diffMs = now - d;
+    const diffMin = Math.floor(diffMs / 60000);
+    const diffHr = Math.floor(diffMs / 3600000);
+    const diffDay = Math.floor(diffMs / 86400000);
+    if (diffMin < 1) return 'たった今';
+    if (diffMin < 60) return `${diffMin}分前`;
+    if (diffHr < 24) return `${diffHr}時間前`;
+    if (diffDay < 7) return `${diffDay}日前`;
+    const m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() === now.getFullYear() ? `${m}月${day}日` : `${d.getFullYear()}年${m}月${day}日`;
+  } catch { return ''; }
+}
+
+function saveLikes() { localStorage.setItem('likes', JSON.stringify([...likes])); }
+
+function toggleLike(postId, btn) {
+  if (likes.has(postId)) {
+    likes.delete(postId);
+    btn.classList.remove('liked');
+    btn.innerHTML = '♡';
+  } else {
+    likes.add(postId);
+    btn.classList.add('liked');
+    btn.innerHTML = '♥';
+    btn.classList.add('heart-pop');
+    setTimeout(() => btn.classList.remove('heart-pop'), 300);
+  }
+  saveLikes();
+}
+
+function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escapeUrl(u) { try { const url = new URL(u); return ['http:', 'https:'].includes(url.protocol) ? u : '#'; } catch { return '#'; } }
+
+function renderMasonry() {
+  const masonry = document.getElementById('masonry');
+  if (allPosts.length === 0) {
+    masonry.innerHTML = '<div class="empty-state"><div class="empty-icon">📷</div><div class="empty-title">还没有照片</div></div>';
+    return;
+  }
+  masonry.innerHTML = allPosts.map((post, idx) => {
+    const img = post.images?.[0];
+    const imgPath = img ? `data/images/${img.filename}` : '';
+    return `<div class="masonry-item" data-post-id="${post.id}"><img src="${imgPath}" alt="" loading="lazy"></div>`;
+  }).join('');
+  masonry.querySelectorAll('.masonry-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const postId = item.dataset.postId;
+      const idx = allPosts.findIndex(p => p.id === postId);
+      if (idx >= 0) openLightbox(idx);
+    });
+  });
+}
+
+function openLightbox(idx) {
+  currentIndex = idx;
+  const post = allPosts[idx];
+  const img = post.images?.[0];
+  if (!img) return;
+  document.getElementById('lightboxImg').src = `data/images/${img.filename}`;
+  document.getElementById('lightboxAuthor').textContent = post.account_name || '羊宮妃那';
+  document.getElementById('lightboxTime').textContent = formatTime(post.time || post.scraped_at);
+  const hb = document.getElementById('lightboxHeart');
+  const liked = likes.has(post.id);
+  hb.className = `action-btn heart-btn ${liked ? 'liked' : ''}`;
+  hb.innerHTML = liked ? '♥' : '♡';
+  hb.dataset.id = post.id;
+  document.getElementById('lightboxPrev').style.display = idx > 0 ? 'flex' : 'none';
+  document.getElementById('lightboxNext').style.display = idx < allPosts.length - 1 ? 'flex' : 'none';
+  document.getElementById('lightbox').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); document.body.style.overflow = ''; currentIndex = -1; }
+function navLightbox(dir) { const n = currentIndex + dir; if (n >= 0 && n < allPosts.length) openLightbox(n); }
+
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxPrev').addEventListener('click', () => navLightbox(-1));
+document.getElementById('lightboxNext').addEventListener('click', () => navLightbox(1));
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget || e.target.classList.contains('lightbox-image-wrap')) closeLightbox(); });
+document.getElementById('lightboxHeart').addEventListener('click', e => toggleLike(e.currentTarget.dataset.id, e.currentTarget));
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('show')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+  if (e.key === ' ') { e.preventDefault(); const hb = document.getElementById('lightboxHeart'); toggleLike(hb.dataset.id, hb); }
+});
+
+// Section switching
+function switchSection(name) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-section="${name}"]`).classList.add('active');
+  document.getElementById('photosSection').classList.toggle('hidden', name !== 'photos');
+  document.getElementById('wikiSection').classList.toggle('active', name === 'wiki');
+  document.getElementById('videosSection').classList.toggle('active', name === 'videos');
+  document.getElementById('voicesSection').classList.toggle('active', name === 'voices');
+  document.getElementById('aboutSection').classList.toggle('active', name === 'about');
+  const titles = { 
+    wiki: t('wiki'), 
+    photos: t('photos'), 
+    videos: t('videos'), 
+    voices: t('voices'), 
+    about: t('about') 
+  };
+  document.getElementById('pageTitle').innerHTML = titles[name] || '';
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+  
+  // Load voices data when switching to voices section
+  if (name === 'voices' && !window.voicesLoaded) {
+    loadVoices();
+    window.voicesLoaded = true;
+  }
+}
+
+document.querySelectorAll('.nav-item').forEach(item => item.addEventListener('click', () => switchSection(item.dataset.section)));
+document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); });
+document.getElementById('sidebarOverlay').addEventListener('click', () => { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); });
+
+// Sakura
+function createSakura() {
+  const c = document.getElementById('sakura');
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div');
+    p.className = 'sakura-petal';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 8) + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    p.style.width = (8 + Math.random() * 6) + 'px';
+    p.style.height = p.style.width;
+    c.appendChild(p);
+  }
+}
+
+// Load wiki
+async function loadWiki() {
+  try {
+    const resp = await fetch('data/wiki.json');
+    const w = await resp.json();
+    const container = document.getElementById('wikiSection');
+
+    // Parse roles into name + work pairs
+    const roles = (w.sections?.find(s => s.id === 'roles')?.content || []).map(r => {
+      const m = r.match(/^(.+?)\s*——\s*(.+)$/);
+      return m ? { name: m[1], work: m[2] } : { name: r, work: '' };
+    });
+
+    // Parse relations
+    const relations = w.relatedPeople || [];
+
+    // Build sections content
+    const bioItems = (w.sections?.find(s => s.id === 'biography')?.content || []);
+    const personalItems = (w.sections?.find(s => s.id === 'personal')?.content || []);
+    const hobbyItems = (w.sections?.find(s => s.id === 'hobbies')?.content || []);
+    const workItems = (w.sections?.find(s => s.id === 'work')?.content || []);
+    const tomoriItems = (w.sections?.find(s => s.id === 'takamatsu-tomori')?.content || []);
+
+    container.innerHTML = `
+      <div class="wiki-banner">
+        <img src="data/wiki/017e59d324c93b5bddfbdae5bfedcea124886720.jpg" alt="羊宫妃那" class="wiki-banner-img">
+      </div>
+      <h1 class="wiki-title">羊宫妃那 <span class="wiki-title-sub">羊宮妃那（ようみや ひな）</span></h1>
+
+      <div class="wiki-quote">
+        「${escapeHtml(w.quote || '')}」
+        <div class="wiki-quote-source">—— ${escapeHtml(w.quoteSource || '')}</div>
+      </div>
+
+      <!-- Infobox floated right -->
+      <div class="wiki-infobox">
+        <div class="wiki-infobox-title">羊宫妃那</div>
+        <img class="wiki-infobox-photo" src="${escapeHtml(w.portrait || '')}" alt="羊宫妃那">
+        <div class="wiki-infobox-caption">青二事务所官方照片</div>
+        <table>
+          <tr><th>本名</th><td>羊宮妃那</td></tr>
+          <tr><th>外文</th><td>ようみや ひな<br>Yōmiya Hina</td></tr>
+          <tr><th>昵称</th><td>${escapeHtml((w.nickname || '').split('、').slice(0, 4).join('、'))}</td></tr>
+          <tr><th>生日</th><td>${escapeHtml(w.birthday || '')}</td></tr>
+          <tr><th>星座</th><td>${escapeHtml(w.constellation || '')}</td></tr>
+          <tr><th>出身</th><td>${escapeHtml(w.birthplace || '')}</td></tr>
+          <tr><th>事务所</th><td>${escapeHtml(w.agency || '')}</td></tr>
+          <tr><th>出道角色</th><td>${escapeHtml(w.debutRole || '')}</td></tr>
+          <tr><th>资格</th><td>${escapeHtml(w.qualification || '')}</td></tr>
+          <tr><th>特长</th><td>${escapeHtml(w.specialty || '')}</td></tr>
+          <tr><th>方言</th><td>${escapeHtml(w.dialect || '')}</td></tr>
+          <tr><th>MBTI</th><td>${escapeHtml(w.mbti || '')}</td></tr>
+          <tr><th>兴趣</th><td>${escapeHtml(w.hobbies || '')}</td></tr>
+          <tr><th>奖项</th><td>${escapeHtml(w.award || '')}</td></tr>
+        </table>
+      </div>
+
+      <p class="wiki-intro">
+        <b>羊宫妃那</b>（ようみや ひな，2000年3月26日—），日本女性声优。出生于奈良县，所属事务所为<a href="${escapeUrl(w.agencyUrl || '#')}" target="_blank" style="color:var(--accent);text-decoration:none;">青二事务所</a>。
+        代表角色包括《更衣人偶坠入爱河》乾心寿、《我心里危险的东西》山田杏奈、《BanG Dream! It's MyGO!!!!!》高松灯、《小市民系列》小佐内由纪等。
+        2024年获得第18届声优奖新人声优赏。
+      </p>
+
+      <!-- Biography -->
+      <h2 class="wiki-h2">经历</h2>
+      ${bioItems.map(item => `<p class="wiki-p">${escapeHtml(item)}</p>`).join('')}
+
+      <!-- Roles -->
+      <h2 class="wiki-h2">代表角色</h2>
+      <div class="role-list">
+        ${roles.map(r => `<div class="role-item"><span class="role-name">${escapeHtml(r.name)}</span> <span class="role-work">${escapeHtml(r.work)}</span></div>`).join('')}
+      </div>
+
+      <!-- Personal -->
+      <h2 class="wiki-h2">个人相关</h2>
+      <h3 class="wiki-h3">成长经历与性格</h3>
+      <ul class="wiki-ul">
+        ${personalItems.map(item => `<li class="wiki-li">${escapeHtml(item)}</li>`).join('')}
+      </ul>
+
+      <!-- Hobbies -->
+      <h3 class="wiki-h3">兴趣爱好</h3>
+      <ul class="wiki-ul">
+        ${hobbyItems.map(item => `<li class="wiki-li">${escapeHtml(item)}</li>`).join('')}
+      </ul>
+
+      <!-- Work habits -->
+      <h2 class="wiki-h2">工作习惯</h2>
+      <ul class="wiki-ul">
+        ${workItems.map(item => `<li class="wiki-li">${escapeHtml(item)}</li>`).join('')}
+      </ul>
+
+      <!-- Tomori -->
+      <h2 class="wiki-h2">与高松灯的故事</h2>
+      <ul class="wiki-ul">
+        ${tomoriItems.map(item => `<li class="wiki-li">${escapeHtml(item)}</li>`).join('')}
+      </ul>
+
+      <!-- Relations -->
+      <h2 class="wiki-h2">人际关系</h2>
+      <div class="relations-grid">
+        ${relations.map(r => `
+          <div class="relation-card">
+            <span class="relation-icon">👤</span>
+            <div>
+              <div class="relation-name">${escapeHtml(r.name)}</div>
+              <div class="relation-desc">${escapeHtml(r.relation)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Source -->
+      <div class="wiki-source">
+        资料来源：<a href="${escapeUrl(w.sourceUrl || '#')}" target="_blank">${escapeHtml(w.source || '萌娘百科')}</a>
+        &nbsp;|&nbsp;照片来源：<a href="${escapeUrl(w.agencyUrl || '#')}" target="_blank">青二事务所</a>
+        &nbsp;|&nbsp;更新于 ${w.fetchedAt || ''}
+      </div>
+    `;
+  } catch (e) {
+    console.error('Wiki load failed:', e);
+  }
+}
+
+async function loadPhotos() {
+  try {
+    const resp = await fetch('data/posts.json');
+    allPosts = await resp.json();
+    document.getElementById('stat-posts').textContent = allPosts.length;
+    document.getElementById('stat-images').textContent = allPosts.reduce((s, p) => s + (p.images?.length || 0), 0);
+    renderMasonry();
+  } catch (e) {
+    document.getElementById('masonry').innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">数据加载失败</div></div>';
+  }
+}
+
+// Language support
+let currentLang = localStorage.getItem('lang') || 'zh';
+
+const translations = {
+  zh: {
+    wiki: '📖 <span>百科</span>',
+    photos: '📷 <span>照片</span>墙',
+    videos: '🎬 <span>视频</span>',
+    voices: '💬 <span>心声</span>',
+    about: 'ℹ️ <span>关于</span>',
+    aboutTitle: '关于本站',
+    aboutContent: '<p>本网站为粉丝个人应援站，非官方网站。</p><p>感谢各位对小羊的应援，祝愿大家都能有美好的一天✨</p><p>本网站所有内容来自互联网公开内容，特别鸣谢：</p><ul><li>B站字幕组：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li><li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li></ul><p>本项目开源地址：<a href="https://github.com/Tomorin-1122" target="_blank">GitHub - Tomorin-1122</a></p>',
+    birthdayTitle: '🎂 今天是羊宫妃那的生日！',
+    birthdayMessage: '祝小羊生日快乐！🎉✨',
+    importantDayTitle: '📅 那年今日',
+    close: '关闭'
+  },
+  ja: {
+    wiki: '📖 <span>百科</span>',
+    photos: '📷 <span>写真</span>壁',
+    videos: '🎬 <span>動画</span>',
+    voices: '💬 <span>心声</span>',
+    about: 'ℹ️ <span>について</span>',
+    aboutTitle: 'このサイトについて',
+    aboutContent: '<p>このサイトはファン個人の応援サイトであり、公式サイトではありません。</p><p>小羊への応援ありがとうございます、皆さんにとって素晴らしい一日になりますように✨</p><p>このサイトのすべてのコンテンツはインターネットの公開コンテンツから引用しています。特に感謝：</p><ul><li>Bilibili字幕グループ：<a href="https://space.bilibili.com/24886720" target="_blank">YoumiyaHinaの水玛琳石</a></li><li><a href="https://zh.moegirl.org.cn/羊宫妃那" target="_blank">萌娘百科</a></li></ul><p>このプロジェクトのオープンソースアドレス：<a href="https://github.com/Tomorin-1122" target="_blank">GitHub - Tomorin-1122</a></p>',
+    birthdayTitle: '🎂 今日は羊宮妃那の誕生日です！',
+    birthdayMessage: 'お誕生日おめでとうございます！🎉✨',
+    importantDayTitle: '📅 あの日の今日',
+    close: '閉じる'
+  }
+};
+
+function t(key) {
+  return translations[currentLang][key] || translations['zh'][key] || key;
+}
+
+function updateUITranslations() {
+  // Update navigation titles
+  const titles = { 
+    wiki: t('wiki'), 
+    photos: t('photos'), 
+    videos: t('videos'), 
+    voices: t('voices'), 
+    about: t('about') 
+  };
+  
+  // Update current section title
+  const currentSection = document.querySelector('.nav-item.active')?.dataset.section;
+  if (currentSection) {
+    document.getElementById('pageTitle').innerHTML = titles[currentSection] || '';
+  }
+  
+  // Update about page if exists
+  const aboutContent = document.querySelector('.about-content');
+  if (aboutContent) {
+    const aboutTitle = document.querySelector('.about-title');
+    if (aboutTitle) aboutTitle.textContent = t('aboutTitle');
+    aboutContent.innerHTML = t('aboutContent');
+  }
+  
+  // Update language toggle button text
+  document.getElementById('langToggle').textContent = currentLang === 'zh' ? '中/日' : '日/中';
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'zh' ? 'ja' : 'zh';
+  localStorage.setItem('lang', currentLang);
+  updateUITranslations();
+}
+
+document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
+// Theme toggle
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.body.classList.add('dark-theme');
+    document.getElementById('themeToggle').textContent = '☀️';
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+  const isDark = document.body.classList.contains('dark-theme');
+  document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+initTheme();
+updateUITranslations();
+checkImportantDays();
+
+createSakura();
+loadPhotos();
+loadWiki();
+
+// Important day detection
+async function checkImportantDays() {
+  try {
+    const resp = await fetch('data/important-days.json');
+    const days = await resp.json();
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    
+    // Find matching important days
+    const matchingDays = days.filter(d => d.month === month && d.day === day);
+    
+    if (matchingDays.length > 0) {
+      // Sort by importance (special first, then important, then normal)
+      const importanceOrder = { special: 0, important: 1, normal: 2 };
+      matchingDays.sort((a, b) => importanceOrder[a.importance] - importanceOrder[b.importance]);
+      
+      const mostImportant = matchingDays[0];
+      showImportantDayModal(mostImportant, today);
+    }
+  } catch (e) {
+    console.error('Failed to check important days:', e);
+  }
+}
+
+function showImportantDayModal(day, today) {
+  const modal = document.getElementById('importantDayModal');
+  const icon = document.getElementById('importantDayIcon');
+  const title = document.getElementById('importantDayTitle');
+  const message = document.getElementById('importantDayMessage');
+  const yearDiv = document.getElementById('importantDayYear');
+  const btn = document.getElementById('importantDayBtn');
+  
+  // Set content based on language
+  if (day.type === 'birthday' && day.character === '羊宫妃那') {
+    // Special birthday treatment
+    modal.classList.add('birthday-special');
+    icon.textContent = '🎂';
+    title.textContent = t('birthdayTitle');
+    message.textContent = t('birthdayMessage');
+    
+    // Calculate years since birth
+    const birthYear = day.year;
+    const age = today.getFullYear() - birthYear;
+    yearDiv.textContent = currentLang === 'zh' 
+      ? `${birthYear}年生まれ、${age}歳`
+      : `${birthYear}年生まれ、${age}歳`;
+  } else {
+    modal.classList.remove('birthday-special');
+    icon.textContent = day.type === 'character_birthday' ? '🎉' : '📅';
+    title.textContent = day.title;
+    message.textContent = day.description;
+    
+    // Calculate years since event
+    const yearsAgo = today.getFullYear() - day.year;
+    if (yearsAgo > 0) {
+      yearDiv.textContent = currentLang === 'zh'
+        ? `${yearsAgo}年前的今天`
+        : `${yearsAgo}年前の今日`;
+    } else {
+      yearDiv.textContent = '';
+    }
+  }
+  
+  btn.textContent = t('close');
+  
+  // Show modal
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  
+  // Add event listeners
+  document.getElementById('importantDayClose').addEventListener('click', closeImportantDayModal);
+  document.getElementById('importantDayBtn').addEventListener('click', closeImportantDayModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeImportantDayModal();
+  });
+}
+
+function closeImportantDayModal() {
+  const modal = document.getElementById('importantDayModal');
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// Voices functionality
+let voicesData = [];
+let currentFilter = 'all';
+
+async function loadVoices() {
+  try {
+    const resp = await fetch('data/voices.json');
+    voicesData = await resp.json();
+    renderVoices();
+    setupVoiceFilters();
+  } catch (e) {
+    console.error('Failed to load voices:', e);
+    document.getElementById('voicesList').innerHTML = '<div class="error">加载失败</div>';
+  }
+}
+
+function renderVoices() {
+  const container = document.getElementById('voicesList');
+  const filtered = currentFilter === 'all' 
+    ? voicesData 
+    : voicesData.filter(v => v.type === currentFilter);
+  
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty">暂无内容</div>';
+    return;
+  }
+  
+  container.innerHTML = filtered.map(voice => `
+    <div class="voice-card" data-id="${voice.id}">
+      <div class="voice-card-header">
+        <div>
+          <h3 class="voice-card-title">${voice.title}</h3>
+          <div class="voice-card-meta">
+            <span class="voice-card-date">${voice.date}</span>
+            <span class="voice-card-source">${voice.source}</span>
+          </div>
+        </div>
+        <span class="voice-card-type ${voice.type}">${voice.type === 'interview' ? '采访' : '推文'}</span>
+      </div>
+      <div class="voice-card-content">
+        ${voice.content.length > 200 ? voice.content.substring(0, 200) + '...' : voice.content}
+      </div>
+      ${voice.images && voice.images.length > 0 ? `
+        <div class="voice-card-images">
+          <img src="${voice.images[0]}" alt="${voice.title}" loading="lazy">
+        </div>
+      ` : ''}
+      ${voice.tags && voice.tags.length > 0 ? `
+        <div class="voice-card-tags">
+          ${voice.tags.map(tag => `<span class="voice-tag">${tag}</span>`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+  
+  // Add click handlers for cards
+  document.querySelectorAll('.voice-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const voice = voicesData.find(v => v.id === card.dataset.id);
+      if (voice) showVoiceDetail(voice);
+    });
+  });
+}
+
+function setupVoiceFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      renderVoices();
+    });
+  });
+}
+
+function showVoiceDetail(voice) {
+  // Create modal if it doesn't exist
+  let modal = document.getElementById('voiceModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'voiceModal';
+    modal.className = 'voice-modal';
+    modal.innerHTML = `
+      <div class="voice-modal-content">
+        <button class="voice-modal-close" id="voiceModalClose">✕</button>
+        <div class="voice-modal-header">
+          <h2 class="voice-modal-title" id="voiceModalTitle"></h2>
+          <div class="voice-modal-meta">
+            <span id="voiceModalDate"></span>
+            <span id="voiceModalSource"></span>
+            <span id="voiceModalType"></span>
+          </div>
+        </div>
+        <div class="voice-modal-body">
+          <div class="voice-modal-text" id="voiceModalText"></div>
+          <div class="voice-modal-images" id="voiceModalImages"></div>
+          <div class="voice-modal-tags" id="voiceModalTags"></div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Add close handler
+    document.getElementById('voiceModalClose').addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+    
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+  
+  // Populate modal
+  document.getElementById('voiceModalTitle').textContent = voice.title;
+  document.getElementById('voiceModalDate').textContent = voice.date;
+  document.getElementById('voiceModalSource').textContent = voice.source;
+  document.getElementById('voiceModalType').textContent = voice.type === 'interview' ? '采访' : '推文';
+  document.getElementById('voiceModalText').textContent = voice.content;
+  
+  // Handle images
+  const imagesContainer = document.getElementById('voiceModalImages');
+  if (voice.images && voice.images.length > 0) {
+    imagesContainer.innerHTML = voice.images.map(img => `<img src="${img}" alt="${voice.title}">`).join('');
+  } else {
+    imagesContainer.innerHTML = '';
+  }
+  
+  // Handle tags
+  const tagsContainer = document.getElementById('voiceModalTags');
+  if (voice.tags && voice.tags.length > 0) {
+    tagsContainer.innerHTML = voice.tags.map(tag => `<span class="voice-tag">${tag}</span>`).join('');
+  } else {
+    tagsContainer.innerHTML = '';
+  }
+  
+  // Show modal
+  modal.classList.add('active');
+}
+
+</script>
+
+<!-- Important Day Modal -->
+<div class="important-day-modal" id="importantDayModal">
+  <div class="important-day-content">
+    <button class="important-day-close" id="importantDayClose">✕</button>
+    <div class="important-day-icon" id="importantDayIcon">📅</div>
+    <h2 class="important-day-title" id="importantDayTitle"></h2>
+    <p class="important-day-message" id="importantDayMessage"></p>
+    <div class="important-day-year" id="importantDayYear"></div>
+    <button class="important-day-btn" id="importantDayBtn">关闭</button>
+  </div>
+</div>
+
+</body>
+</html>
