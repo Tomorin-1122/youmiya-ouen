@@ -1376,7 +1376,7 @@ function renderMasonry() {
     const img = post.images?.[0];
     const imgPath = img ? `data/images/${img.filename}` : '';
     const likedClass = likes.has(post.id) ? ' liked-item' : '';
-    return `<div class="masonry-item${likedClass}" data-post-id="${post.id}"><img src="${imgPath}" alt="" loading="lazy"></div>`;
+    return `<div class="masonry-item${likedClass}" data-post-id="${escapeHtml(post.id)}"><img src="${escapeHtml(imgPath)}" alt="" loading="lazy"></div>`;
   }).join('');
   masonry.querySelectorAll('.masonry-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -1819,28 +1819,28 @@ function renderVoices() {
   }
   
   container.innerHTML = filtered.map(voice => `
-    <div class="voice-card" data-id="${voice.id}">
+    <div class="voice-card" data-id="${escapeHtml(voice.id)}">
       <div class="voice-card-header">
         <div>
-          <h3 class="voice-card-title">${voice.title}</h3>
+          <h3 class="voice-card-title">${escapeHtml(voice.title)}</h3>
           <div class="voice-card-meta">
-            <span class="voice-card-date">${voice.date}</span>
-            <span class="voice-card-source">${voice.source}</span>
+            <span class="voice-card-date">${escapeHtml(voice.date)}</span>
+            <span class="voice-card-source">${escapeHtml(voice.source)}</span>
           </div>
         </div>
-        <span class="voice-card-type ${voice.type}">${voice.type === 'interview' ? '采访' : voice.type === 'article' ? '专栏' : '推文'}</span>
+        <span class="voice-card-type ${escapeHtml(voice.type)}">${voice.type === 'interview' ? '采访' : voice.type === 'article' ? '专栏' : '推文'}</span>
       </div>
       <div class="voice-card-content">
-        ${voice.content.length > 200 ? voice.content.substring(0, 200) + '...' : voice.content}
+        ${escapeHtml(voice.content.length > 200 ? voice.content.substring(0, 200) + '...' : voice.content)}
       </div>
       ${voice.images && voice.images.length > 0 ? `
         <div class="voice-card-images">
-          <img src="${voice.images[0]}" alt="${voice.title}" loading="lazy">
+          <img src="${escapeHtml(voice.images[0])}" alt="${escapeHtml(voice.title)}" loading="lazy">
         </div>
       ` : ''}
       ${voice.tags && voice.tags.length > 0 ? `
         <div class="voice-card-tags">
-          ${voice.tags.map(tag => `<span class="voice-tag">${tag}</span>`).join('')}
+          ${voice.tags.map(tag => `<span class="voice-tag">${escapeHtml(tag)}</span>`).join('')}
         </div>
       ` : ''}
     </div>
@@ -1910,13 +1910,13 @@ function showVoiceDetail(voice) {
   document.getElementById('voiceModalTitle').textContent = voice.title;
   document.getElementById('voiceModalDate').textContent = voice.date;
   document.getElementById('voiceModalSource').textContent = voice.source;
-  document.getElementById('voiceModalType').textContent = voice.type === 'interview' ? '采访' : '推文';
+  document.getElementById('voiceModalType').textContent = voice.type === 'interview' ? '采访' : voice.type === 'article' ? '专栏' : '推文';
   document.getElementById('voiceModalText').textContent = voice.content;
   
   // Handle images
   const imagesContainer = document.getElementById('voiceModalImages');
   if (voice.images && voice.images.length > 0) {
-    imagesContainer.innerHTML = voice.images.map(img => `<img src="${img}" alt="${voice.title}">`).join('');
+    imagesContainer.innerHTML = voice.images.map(img => `<img src="${escapeHtml(img)}" alt="${escapeHtml(voice.title)}">`).join('');
   } else {
     imagesContainer.innerHTML = '';
   }
@@ -1924,7 +1924,7 @@ function showVoiceDetail(voice) {
   // Handle tags
   const tagsContainer = document.getElementById('voiceModalTags');
   if (voice.tags && voice.tags.length > 0) {
-    tagsContainer.innerHTML = voice.tags.map(tag => `<span class="voice-tag">${tag}</span>`).join('');
+    tagsContainer.innerHTML = voice.tags.map(tag => `<span class="voice-tag">${escapeHtml(tag)}</span>`).join('');
   } else {
     tagsContainer.innerHTML = '';
   }

@@ -7,6 +7,7 @@ import hashlib
 import logging
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
+from data_store import load_posts, save_posts, get_existing_filenames, merge_posts
 
 # 配置日志
 logging.basicConfig(
@@ -208,7 +209,7 @@ def main():
     img_dir.mkdir(parents=True, exist_ok=True)
 
     # 加载现有数据
-    existing_posts = load_existing_posts(data_file)
+    existing_posts = load_posts(data_file)
     existing_ids = get_existing_ids(existing_posts)
     existing_filenames = get_existing_filenames(existing_posts)
 
@@ -262,14 +263,10 @@ def main():
 
         # 合并新旧数据
         if all_new_posts:
-            all_posts = all_new_posts + existing_posts
-            all_posts.sort(key=lambda p: p.get("time", ""), reverse=True)
+            all_posts = merge_posts(all_new_posts, existing_posts)
 
             # 保存
-            data_file.write_text(
-                json.dumps(all_posts, ensure_ascii=False, indent=2),
-                encoding="utf-8"
-            )
+            save_posts(data_file, all_posts)
             logger.info(f"已保存 {len(all_posts)} 条帖子（新增 {len(all_new_posts)} 条）")
         else:
             logger.info("没有新帖子需要保存")

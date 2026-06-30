@@ -8,6 +8,7 @@ import hashlib
 import websocket
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
+from data_store import load_posts, save_posts, get_existing_filenames, merge_posts
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -16,6 +17,8 @@ SCREEN_NAME = "Hina_Youmiya"
 JST = timezone(timedelta(hours=9))
 IMGDIR = Path(__file__).parent / "data" / "images"
 DATAFILE = Path(__file__).parent / "data" / "posts.json"
+CONFIG = json.loads((Path(__file__).parent / "config.json").read_text(encoding="utf-8"))
+BEARER = CONFIG.get("x_bearer_token", "")
 
 # 浏览器内执行的 JS：调用 X API 获取媒体数据
 FETCH_MEDIA_JS = """
@@ -62,7 +65,7 @@ def cdp_eval(ws, expr, timeout=30):
             m = json.loads(ws.recv())
             if m.get("id") == msg_id:
                 return m.get("result", {}).get("result", {}).get("value", "")
-        except:
+        except Exception:
             break
     return None
 
@@ -104,7 +107,7 @@ def find_user_id(ws, screen_name):
         headers: {{
           'x-csrf-token': ct0,
           'x-twitter-auth-type': 'OAuth2Session',
-          'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs=1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA'
+          'authorization': 'Bearer {BEARER}'
         }}
       }});
       const data = await r.json();
@@ -169,7 +172,7 @@ def fetch_media_page(ws, query_id, user_id, cursor=None):
           'x-csrf-token': ct0,
           'x-twitter-auth-type': 'OAuth2Session',
           'x-twitter-active-user': 'yes',
-          'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs=1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA'
+          'authorization': 'Bearer {BEARER}'
         }}
       }});
       return await r.text();
@@ -313,15 +316,9 @@ def main():
     print(f"  userId: {user_id}")
     
     # 加载现有数据
-    existing_posts = []
-    existing_ids = set()
-    existing_filenames = set()
-    if DATAFILE.exists():
-        existing_posts = json.loads(DATAFILE.read_text(encoding="utf-8"))
-        existing_ids = {p.get("id") for p in existing_posts if p.get("id")}
-        for p in existing_posts:
-            for img in p.get("images", []):
-                existing_filenames.add(img.get("filename", ""))
+    existing_posts = load_posts(DATAFILE)
+    existing_ids = {p.get("id") for p in existing_posts if p.get("id")}
+    existing_filenames = get_existing_filenames(existing_posts)
     
     # 抓取媒体数据
     print("\n开始抓取媒体...")
@@ -384,7 +381,7 @@ def main():
         try:
             dt = datetime.strptime(time_str, "%a %b %d %H:%M:%S %z %Y")
             iso_time = dt.isoformat()
-        except:
+        except Exception:
             iso_time = datetime.now(JST).isoformat()
         
         post = {
@@ -400,9 +397,8 @@ def main():
         new_posts.append(post)
     
     # 合并保存
-    all_posts = new_posts + existing_posts
-    all_posts.sort(key=lambda p: p.get("time", ""), reverse=True)
-    DATAFILE.write_text(json.dumps(all_posts, ensure_ascii=False, indent=2), encoding="utf-8")
+    all_posts = merge_posts(new_posts, existing_posts)
+    save_posts(DATAFILE, all_posts)
     
     print(f"\n完成!")
     print(f"  新增帖子: {len(new_posts)}")

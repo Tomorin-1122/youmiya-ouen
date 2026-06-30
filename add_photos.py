@@ -11,6 +11,7 @@ import hashlib
 import os
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from data_store import load_posts, save_posts, get_existing_filenames, generate_post_id
 
 JST = timezone(timedelta(hours=9))
 IMGDIR = Path(__file__).parent / "data" / "images"
@@ -43,11 +44,9 @@ def main():
         return
 
     # 加载现有数据
-    posts = []
-    if DATAFILE.exists():
-        posts = json.loads(DATAFILE.read_text(encoding="utf-8"))
+    posts = load_posts(DATAFILE)
 
-    existing = get_existing_filenames()
+    existing = get_existing_filenames(posts)
 
     # 扫描图片文件
     image_exts = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
@@ -66,7 +65,7 @@ def main():
     # 添加新照片
     now = datetime.now(JST).isoformat()
     for f in new_files:
-        post_id = generate_id(f.name)
+        post_id = generate_post_id(f.name)
         post = {
             "id": post_id,
             "url": "",
@@ -85,14 +84,9 @@ def main():
         posts.insert(0, post)
         print(f"  + {f.name}")
 
-    # 按时间排序
+    # 按时间排序并保存
     posts.sort(key=lambda p: p.get("time", ""), reverse=True)
-
-    # 保存
-    DATAFILE.write_text(
-        json.dumps(posts, ensure_ascii=False, indent=2),
-        encoding="utf-8"
-    )
+    save_posts(DATAFILE, posts)
 
     total = len(posts)
     total_imgs = sum(len(p.get("images", [])) for p in posts)

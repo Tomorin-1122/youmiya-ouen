@@ -9,13 +9,13 @@
 import http.server
 import socketserver
 import json
-import hashlib
 import os
 import sys
 import threading
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from data_store import load_posts, save_posts, get_existing_filenames, generate_post_id
 
 sys.stdout.reconfigure(line_buffering=True)
 
@@ -52,11 +52,8 @@ def auto_scan_photos():
     with _scan_cache["file_lock"]:
         try:
             # 读取现有数据
-            posts = json.loads(DATAFILE.read_text(encoding="utf-8"))
-            existing = set()
-            for p in posts:
-                for img in p.get("images", []):
-                    existing.add(img.get("filename", ""))
+            posts = load_posts(DATAFILE)
+            existing = get_existing_filenames(posts)
 
             # 扫描图片
             image_exts = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
@@ -71,7 +68,7 @@ def auto_scan_photos():
 
             now = datetime.now(JST).isoformat()
             for f in new_files:
-                post_id = hashlib.md5(f.name.encode()).hexdigest()[:12]
+                post_id = generate_post_id(f.name)
                 posts.insert(0, {
                     "id": post_id,
                     "url": "",
@@ -85,7 +82,7 @@ def auto_scan_photos():
                 print(f"[AUTO] 新照片: {f.name}")
 
             posts.sort(key=lambda p: p.get("time", ""), reverse=True)
-            DATAFILE.write_text(json.dumps(posts, ensure_ascii=False, indent=2), encoding="utf-8")
+            save_posts(DATAFILE, posts)
             print(f"[AUTO] 已添加 {len(new_files)} 张新照片")
 
             # 更新扫描时间
